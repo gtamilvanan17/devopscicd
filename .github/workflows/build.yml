@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t portfolio:${{ vars.GITHUB_RUN_NUMBER }} .
+          docker build -t portfolio .
 
       # - name: Run Docker Container
       #   run: |
@@ -34,7 +34,7 @@ jobs:
       - name: Scan with Docker Scout
         uses: docker/scout-action@v1
         with:
-          image: portfolio:${{ vars.GITHUB_RUN_NUMBER }}
+          image: tamil17/cdops
           only-severities: critical,high
 
   sonarqube:
