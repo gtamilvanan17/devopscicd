@@ -6,7 +6,8 @@ on:
       - master
 
 jobs:
-  build-deploy-scan:
+  build-deploy:
+    name: Buidl and Deploy
     runs-on: self-hosted
 
     steps:
@@ -26,8 +27,8 @@ jobs:
         run: |
           docker build -t portfolio:${{ github.run_number }} .
 
-          - name: Run Docker Container
-          run: |
+      - name: Run Docker Container
+        run: |
             CONTAINER_NAME=my-portfolio-app
             IMAGE_NAME=portfolio:${{ github.run_number }}
         
@@ -49,7 +50,8 @@ jobs:
 
   sonarqube:
     name: SonarQube Analysis
-    runs-on: ubuntu-latest
+    needs: build-deploy
+    runs-on: self-hosted
     permissions: read-all
     steps:
       - uses: actions/checkout@v2
