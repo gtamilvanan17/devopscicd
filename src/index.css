@@ -1,0 +1,230 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 215 25% 27%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    --primary: 214 80% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 215 25% 27%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215 20% 65.1%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 215 25% 27%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 214 80% 56%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 215 28% 17%;
+    --foreground: 210 40% 98%;
+
+    --card: 215 28% 17%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 214 80% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 20% 65.1%;
+
+    --accent: 215 25% 27%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 214 80% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/75 dark:bg-gray-900/75 backdrop-blur-md rounded-xl border border-white/20 dark:border-gray-800/20 shadow-lg transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply shadow-xl transform scale-[1.02] border-blue-200/30 dark:border-blue-500/30;
+  }
+  
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-24;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-8 text-center relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-500 rounded-full opacity-70 mt-2;
+  }
+  
+  .network-line {
+    @apply stroke-blue-500/30 stroke-[0.5] fill-none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .button-primary::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .button-primary:hover::after {
+    left: 100%;
+  }
+  
+  .skill-progress {
+    @apply h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden transition-all duration-300;
+  }
+  
+  .skill-progress:hover {
+    @apply h-3;
+  }
+  
+  .skill-progress-bar {
+    @apply h-full bg-blue-500 rounded-full transition-all duration-1000 ease-out;
+  }
+  
+  .nav-link {
+    @apply after:content-[''] after:block after:h-0.5 after:w-0 after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  .form-input {
+    @apply w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300;
+  }
+  
+  .form-input:focus {
+    @apply border-blue-500 shadow-md shadow-blue-500/20;
+  }
+  
+  .contact-icon-container {
+    @apply mr-4 p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 transition-all duration-300;
+  }
+  
+  .contact-icon-container:hover {
+    @apply bg-blue-200 dark:bg-blue-800/50 transform scale-110;
+  }
+  
+  .social-icon {
+    @apply p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-all duration-300;
+  }
+  
+  .social-icon:hover {
+    @apply transform scale-110 rotate-6;
+  }
+}
+
+/* Subtle grid background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 120, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 120, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Project card hover effect */
+.project-card-hover {
+  transition: all 0.3s ease;
+}
+
+.project-card-hover:hover {
+  transform: translateY(-8px);
+}
+
+/* Form label floating effect */
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  position: absolute;
+  left: 16px;
+  top: 10px;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.form-group input:focus ~ label,
+.form-group input:not(:placeholder-shown) ~ label,
+.form-group textarea:focus ~ label,
+.form-group textarea:not(:placeholder-shown) ~ label {
+  top: -10px;
+  left: 10px;
+  font-size: 12px;
+  padding: 0 5px;
+  background-color: white;
+  @apply dark:bg-gray-800 text-blue-500;
+}
