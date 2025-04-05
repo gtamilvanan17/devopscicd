@@ -17,20 +17,18 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # - name: Log in to DockerHub (optional)
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: DockerHub Login
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker Image
         run: |
-          docker build -t portfolio:${{ github.run_number }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio:${{ github.run_number }} .
+          docker push 
 
       - name: Run Docker Container
         run: |
             CONTAINER_NAME=my-portfolio-app
-            IMAGE_NAME=portfolio:${{ github.run_number }}
+            IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/portfolio:${{ github.run_number }}
         
             if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
               echo "Container $CONTAINER_NAME already exists. Redeploying..."
@@ -40,13 +38,9 @@ jobs:
             fi
         
             docker run -dit --name $CONTAINER_NAME -p 85:80 $IMAGE_NAME
-
-      # Option 1: Scan using Docker Scout
-      # - name: Scan with Docker Scout
-      #   uses: docker/scout-action@v1
-      #   with:
-      #     image: tamil17/cdops
-      #     only-severities: critical,high
+            
+      - name: DockerHub Logout
+        run: docker logout
 
   sonarqube:
     name: SonarQube Analysis
